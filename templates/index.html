@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HealthRiskPrediction — Sugar Risk Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<!-- ══ LOGIN PAGE ══ -->
+<div id="loginPage" class="page active">
+
+  <!-- LEFT PANEL -->
+  <div class="login-side left">
+    <div class="hero-heart-wrap">
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring"></div>
+      <div class="heart-svg-wrap">
+        <svg width="100" height="90" viewBox="0 0 100 90">
+          <path d="M50 80 C50 80 8 52 8 26 C8 12 18 4 30 4 C38 4 46 8 50 16 C54 8 62 4 70 4 C82 4 92 12 92 26 C92 52 50 80 50 80Z" fill="url(#hg)" stroke="rgba(184,144,42,0.5)" stroke-width="1.5"/>
+          <defs>
+            <linearGradient id="hg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#e74c3c"/>
+              <stop offset="100%" stop-color="#7b1a10"/>
+            </linearGradient>
+          </defs>
+          <polyline points="10,50 22,50 26,36 30,64 34,42 38,58 42,50 58,50 62,42 66,54 70,48 78,48" fill="none" stroke="rgba(184,144,42,0.7)" stroke-width="1.5"/>
+        </svg>
+      </div>
+    </div>
+    <div class="ecg-strip">
+      <svg viewBox="0 0 500 60" preserveAspectRatio="none">
+        <polyline points="0,30 40,30 50,10 60,50 70,20 80,40 90,30 160,30 170,10 180,50 190,20 200,40 210,30 280,30 290,10 300,50 310,20 320,40 330,30 400,30 410,10 420,50 430,20 440,40 450,30 500,30" fill="none" stroke="rgba(184,144,42,0.5)" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <p class="side-tagline">Precision health intelligence<br/>for those who demand clarity.</p>
+    <div class="side-stats">
+      <div class="stat-item"><span class="stat-num">98.2%</span><span class="stat-lbl">Accuracy</span></div>
+      <div class="stat-item"><span class="stat-num">8</span><span class="stat-lbl">Biomarkers</span></div>
+      <div class="stat-item"><span class="stat-num">PDF</span><span class="stat-lbl">Reports</span></div>
+    </div>
+  </div>
+
+  <!-- CENTER FORM -->
+  <div class="login-center">
+    <div class="center-logo">
+      <svg width="36" height="32" viewBox="0 0 100 90">
+        <path d="M50 80C50 80 8 52 8 26C8 12 18 4 30 4C38 4 46 8 50 16C54 8 62 4 70 4C82 4 92 12 92 26C92 52 50 80 50 80Z" fill="#c0392b" stroke="rgba(184,144,42,0.5)" stroke-width="2"/>
+      </svg>
+      <span class="center-logo-name"><span>Check</span></span>
+      <span class="center-logo-tag">Sugar Risk Intelligence</span>
+    </div>
+
+    <p class="login-greeting">Welcome back.</p>
+    <p class="login-sub">Sign in to continue</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('login')">Sign In</button>
+      <button class="tab-btn" onclick="switchTab('register')">Register</button>
+    </div>
+
+    <div id="loginTab" class="tab-content active">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="loginUser" placeholder="Enter username"/>
+        <div class="input-line"></div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPass" placeholder="Enter password"/>
+        <div class="input-line"></div>
+      </div>
+      <button class="btn-primary" onclick="doLogin()">Enter Vault</button>
+      <div class="error-msg" id="loginErr"></div>
+    </div>
+
+    <div id="registerTab" class="tab-content">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="regName" placeholder="Your name"/>
+        <div class="input-line"></div>
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="regUser" placeholder="Choose username"/>
+        <div class="input-line"></div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="regPass" placeholder="Choose password"/>
+        <div class="input-line"></div>
+      </div>
+      <button class="btn-primary" onclick="doRegister()">Create Account</button>
+      <div class="error-msg" id="regErr"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="login-side right">
+    <div class="side-deco">
+      <div class="deco-spin-ring">
+        <div class="deco-spin-ring-inner">
+          <span class="deco-cross">✚</span>
+        </div>
+      </div>
+      <div class="deco-labels">
+        <span class="deco-label-main">AI Risk Analysis</span>
+        <span class="deco-label-sub">Powered by clinical thresholds</span>
+      </div>
+      <div class="deco-metrics">
+        <div class="deco-metric"><span>126+</span><span>Diabetic mg/dL</span></div>
+        <div class="deco-metric"><span>6.5%</span><span>HbA1c threshold</span></div>
+        <div class="deco-metric"><span>4</span><span>Risk levels</span></div>
+        <div class="deco-metric"><span>PDF</span><span>Download</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DASHBOARD PAGE ══ -->
+<div id="dashPage" class="page">
+  <nav class="dash-nav">
+    <div class="nav-brand">
+      <svg width="20" height="18" viewBox="0 0 100 90">
+        <path d="M50 80C50 80 8 52 8 26C8 12 18 4 30 4C38 4 46 8 50 16C54 8 62 4 70 4C82 4 92 12 92 26C92 52 50 80 50 80Z" fill="#c0392b"/>
+      </svg>
+      HealthRiskPrediction<span>Check</span>
+    </div>
+    <div class="nav-right">
+      <span class="nav-user" id="navUser">—</span>
+      <button class="btn-logout" onclick="doLogout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="dash-body">
+    <!-- INPUT COLUMN -->
+    <div class="dash-left">
+      <p class="section-title">Risk Analysis</p>
+      <p class="section-sub">Enter patient biomarkers</p>
+      <span class="params-badge">8 PARAMETERS</span>
+
+      <div class="input-grid">
+        <div class="field-wrap">
+          <label>Age</label>
+          <input type="number" id="age" placeholder="years" min="1" max="120"/>
+        </div>
+        <div class="field-wrap">
+          <label>Gender</label>
+          <select id="gender">
+            <option value="">Select</option>
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+          </select>
+        </div>
+        <div class="field-wrap">
+          <label>Fasting Sugar (mg/dL)</label>
+          <input type="number" id="sugar" placeholder="mg/dL"/>
+          <div class="field-hint">Normal: 70–99 · Pre: 100–125 · Diabetic: ≥126</div>
+        </div>
+        <div class="field-wrap">
+          <label>Blood Pressure (mmHg)</label>
+          <input type="number" id="bp" placeholder="systolic"/>
+        </div>
+        <div class="field-wrap">
+          <label>BMI</label>
+          <input type="number" id="bmi" placeholder="kg/m²" step="0.1"/>
+        </div>
+        <div class="field-wrap">
+          <label>Heart Rate (bpm)</label>
+          <input type="number" id="hr" placeholder="bpm"/>
+        </div>
+        <div class="field-wrap">
+          <label>HbA1c (%)</label>
+          <input type="number" id="hba1c" placeholder="%" step="0.1"/>
+          <div class="field-hint">Normal: &lt;5.7 · Pre: 5.7–6.4 · Diabetic: ≥6.5</div>
+        </div>
+        <div class="field-wrap">
+          <label>Family History</label>
+          <select id="family">
+            <option value="0">None</option>
+            <option value="1">Diabetes</option>
+            <option value="2">Heart Disease</option>
+            <option value="3">Both</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-analyze" onclick="analyze()">⬡ Analyze Risk Profile</button>
+    </div>
+
+    <!-- RESULT COLUMN -->
+    <div class="dash-right">
+      <p class="section-title">Analysis Report</p>
+      <p class="section-sub">AI-powered risk assessment</p>
+
+      <div class="result-empty" id="resultEmpty">
+        <svg width="60" height="54" viewBox="0 0 100 90">
+          <path d="M50 80C50 80 8 52 8 26C8 12 18 4 30 4C38 4 46 8 50 16C54 8 62 4 70 4C82 4 92 12 92 26C92 52 50 80 50 80Z" fill="none" stroke="rgba(184,144,42,0.4)" stroke-width="3"/>
+        </svg>
+        <p>Enter biomarkers and run<br/>the analysis to see your results.</p>
+      </div>
+
+      <div class="result-card" id="resultCard">
+        <div class="risk-hero" id="riskHero">
+          <div class="risk-label-wrap">
+            <div class="risk-eyebrow">Risk Classification</div>
+            <div class="risk-level-text" id="riskLabel">—</div>
+          </div>
+          <div class="risk-score-wrap">
+            <div class="risk-score-num" id="riskScore">0</div>
+            <div class="risk-score-max">/ 100 score</div>
+          </div>
+        </div>
+
+        <div class="score-bar-wrap">
+          <div class="score-bar-track">
+            <div class="score-bar-fill" id="scoreBar" style="width:0%"></div>
+          </div>
+          <div class="score-bar-zones">
+            <span class="zone">Low</span>
+            <span class="zone">Moderate</span>
+            <span class="zone">High</span>
+            <span class="zone">Critical</span>
+          </div>
+        </div>
+
+        <div class="metrics-grid" id="metricsGrid"></div>
+
+        <div class="recs-wrap">
+          <div class="recs-title">Recommendations</div>
+          <div id="recsList"></div>
+        </div>
+
+        <button class="btn-pdf" onclick="downloadPDF()">⬇ &nbsp; Download PDF Report</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/background.js') }}"></script>
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
